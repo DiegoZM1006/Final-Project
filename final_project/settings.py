@@ -25,8 +25,10 @@ SECRET_KEY = 'django-insecure-$uco65x)v&_j)=4l%4r9#j0!en6%rn*uil1ort!f^&e7*65%r$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Application definition
 
@@ -119,7 +121,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LIVE_SERVER_PORT = 8000  # Especifica el puerto deseado
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'sistemafilantropia6@gmail.com'  
+EMAIL_HOST_PASSWORD = 'ofhqfnwaohviqvfs'  
+
+

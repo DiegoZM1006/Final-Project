@@ -1,0 +1,118 @@
+{% extends 'layouts/navbar_sidebar.html' %}
+
+{% block title_page %}
+
+    <title>Reportes</title>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <h3>REPORTE</h3>
+
+    <div class="mx-auto h-75 mt-5" style="width: 95%;background-color: #FFF; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+        <div class="table-responsive w-100 p-3" style="height: 90%;">
+            <table id="tableStudents" class="table w-100 mt-4">
+                <thead class="table-secondary">
+                    <tr class="align-middle">
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Notas</th>
+                        <th>Consultas</th>
+                        <th>Gastos</th>
+                        <th>Actividades no académicas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in selected_students %}
+                        <tr>
+                            <td>{{ student.code }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                {% for grade in grades %}
+                                    {% if student == grade.student %}
+                                        <p>{{ grade.course.code }} : <b>{{ grade.grade }}</b></p>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for consulta in consultas %}
+                                    {% if student == consulta.student %}
+                                        <p>Centro de apoyo: {{ consulta.support_center }} </p>
+                                        <p>Fecha: {{ consulta.date }}</p>
+                                        <p>Hora: {{ consulta.time }}</p>
+                                        <p>Motivo: {{ consulta.reason }}</p>
+                                        <p>Resultado: {{ consulta.outcome }}</p>
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <h6>Pagos de Alimentacion</h6>
+                                
+                                {% for expense in expenses %}
+                                    {% if expense.type_mount == 'Alimentación' %}
+                                        <p>Cantidad de dinero: {{ expense.money_quantity }}</p>
+                                        <p>Tiempo: {{ expense.accumulated_time }} {{ expense.selected_time}} </p>
+                                        <p>Beca Asociada: {{ expense.scholarship.name }}</p>
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                                <h6>Pagos de Transporte</h6>
+                                
+                                {% for expense in expenses %}
+                                    {% if expense.type_mount == 'Transporte' %}
+                                        <p>Cantidad de dinero: {{ expense.money_quantity }}</p>
+                                        <p>Tiempo: {{ expense.accumulated_time }}  {{ expense.selected_time}}</p>
+                                        <p>Beca Asociada: {{ expense.scholarship.name }}</p>
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                                <h6>Pagos Academicos</h6>
+                                
+                                {% for expense in expenses %}
+                                    {% if expense.type_mount == 'Academico' %}
+                                        <p>Cantidad de dinero: {{ expense.money_quantity }}</p>
+                                        <p>Tiempo: {{ expense.accumulated_time }} {{ expense.selected_time}} </p>
+                                        <p>Beca Asociada: {{ expense.scholarship.name }}</p>
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                               
+                            </td>
+                            <td>
+                                {% for b in bu %}
+                                    {% if student == b.student %}
+                                        <p>Actividad: {{ b.activity }}</p>
+                                        <p>Dias asistencia: {{ b.assistance_days }}</p>
+                                    {% endif %}
+                                    <hr>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <form method="get" action="{% url 'generate_pdf' student.id %}">
+                                    <button type="submit" class="btn btn-primary" id="pdf-button">Descargar PDF</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+
+    <script>
+        let tableStudents = $('#tableStudents').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
+    </script>
+
+{% endblock %}
