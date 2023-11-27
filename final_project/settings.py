@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-$uco65x)v&_j)=4l%4r9#j0!en6%rn*uil1ort!f^&e7*65%r$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['followstudents.azurewebsites.net']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
@@ -122,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'follow_students/static'
+STATIC_ROOT = BASE_DIR / 'static'
 
 LIVE_SERVER_PORT = 8000  # Especifica el puerto deseado
 
